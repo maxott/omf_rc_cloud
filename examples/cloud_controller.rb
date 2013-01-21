@@ -4,25 +4,36 @@ require 'omf_common'
 OP_MODE = :development
 #OP_MODE = :test_dev
 
-  
-  
-cloud_opts = {
-  #:provider => 'OpenStack',
-  :type => :openstack,
-  :openstack_auth_token => "f34dac0eec9845b88cb831d50ba2da4a",
-  :openstack_management_url => "http://cloud.npc.nicta.com.au:8774/v2/6fee1fa4e35c4e44bd38f613021795e5",
-  :openstack_tenant => '6fee1fa4e35c4e44bd38f613021795e5',
-  :openstack_auth_url =>  'http://cloud.npc.nicta.com.au:5000/v2.0/tokens'
-}
-
 opts = {
   communication: {
-    type: :amqp,
-    #type: :local,
-    server: 'srv.mytestbed.net'
+    url: 'amqp://srv.mytestbed.net'
   },
   eventloop: { type: :em},
 }
+
+# Load cloud options from a local yaml file and provide command line
+# options to overide any of the declared parameters. Any parameters with
+# value '??' in the YAML files are compulsory. 
+#
+cloud_opts = {}
+op = OptionParser.new
+YAML.load_file(File.join(File.dirname(__FILE__), 'cloud_provider.yaml'))['cloud_provider'].each do |k, val|
+  key = k.to_sym
+  l = "--#{k} VALUE"
+  (l += " [#{val}]") unless val == '??'
+  op.on(l) {|v| cloud_opts[key] = v }
+  cloud_opts[key] = val
+end
+op.parse!
+cloud_opts.each do |key, val|
+  if val == '??'
+    $stderr.puts "Missing commandline argument for '--#{key}'"
+    $stderr.puts op
+    exit(-1)
+  end
+  #puts "key: #{key}:#{key.class} => #{val}:#{val.class}"
+end
+
 
 def create_server(cloud)
   sopts = {

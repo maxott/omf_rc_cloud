@@ -1,0 +1,8 @@
+---
+proxy:
+  communication:
+    :url: amqp://srv.mytestbed.net
+  resources:
+  - type: node
+    uid: 2de3ea49-f335-4bd2-b704-c2f4056e604d
+    #hrn: s2

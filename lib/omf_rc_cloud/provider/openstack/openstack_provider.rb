@@ -1,5 +1,6 @@
 
 require 'fog'
+require 'yaml'
 
 module OmfRcCloud
   class Provider
@@ -29,19 +30,34 @@ module OmfRcCloud
         image_ref: image_find(opts[:image]).id,
       } 
       server = @connection.servers.new copts
-      meta = {
-        resource_id: uid,
-        #parent_id: server.parent.uid,
-        communication: OmfCommon.comm.options
+      
+      # meta = {
+        # resource_id: uid,
+        # #parent_id: server.parent.uid,
+        # communication: OmfCommon.comm.options
+      # }
+      # server.metadata = {omf6: meta.to_s}
+      
+      
+      sp = {
+        'type' => 'node',
+        'uid' => uid
       }
-      server.metadata = {omf6: meta.to_s}
+      if hrn = server_proxy.hrn
+        sp['hrn']
+      end
+      server.personality = [{
+        'path' => '/home/ubuntu/foo',
+        'contents' => {
+          'proxy' => {
+            'communication' => OmfCommon.comm.options,
+            'resources' => [sp]
+          }
+        }.to_yaml
+      }]
       server.save
       @servers << server
       #debug server.inspect
-      # OmfCommon.eventloop.every(2) do
-        # server.reload
-        # debug server.inspect
-      # end
       server
     end
     

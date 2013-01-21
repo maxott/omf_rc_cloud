@@ -28,7 +28,7 @@ module OmfRcCloud
         raise "Cloud technology provider already initialised"
       end
       unless provider = opts[:provider]
-        provider = @@providers[opts[:type]]
+        provider = @@providers[opts[:type].to_sym]
       end
       unless provider
         raise "Missing Cloud provider declaration. Either define 'type' or 'provider'"

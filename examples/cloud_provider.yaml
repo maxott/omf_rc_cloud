@@ -1,0 +1,7 @@
+
+cloud_provider:
+  type: openstack
+  openstack_auth_token:     ??
+  openstack_management_url: http://cloud.npc.nicta.com.au:8774/v2/6fee1fa4e35c4e44bd38f613021795e5
+  openstack_tenant:         6fee1fa4e35c4e44bd38f613021795e5
+  openstack_auth_url:       http://cloud.npc.nicta.com.au:5000/v2.0/tokens
