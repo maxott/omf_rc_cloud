@@ -1,0 +1,14 @@
+#!/bin/bash
+
+RVM_HOME=/home/ubuntu
+CWD=$(dirname $0)
+OMF6_HOME=/home/ubuntu/omf6
+OMF_CLOUD_HOME=/home/ubuntu/omf_rc_cloud
+
+RUBY=ruby-1.9.3-p374
+GEM_HOME="/home/ubuntu/.rvm/gems/$RUBY"
+PATH="/home/ubuntu/.rvm/rubies/${RUBY}/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games"
+GEM_PATH="/home/ubuntu/.rvm/gems/${RUBY}:/home/ubuntu/.rvm/gems/${RUBY}@global"
+
+
+env GEM_HOME=${GEM_HOME} PATH=${PATH} GEM_PATH=${GEM_PATH} ruby -I $OMF_CLOUD_HOME/lib -I $OMF6_HOME/omf_common/lib -I $OMF6_HOME/omf_rc/lib $OMF_CLOUD_HOME/examples/node_proxy.rb -m production $*

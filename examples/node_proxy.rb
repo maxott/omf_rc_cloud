@@ -3,15 +3,20 @@
 require 'omf_common'
 require 'omf_rc'
 require 'omf_rc/resource_factory'  
+require 'optparse'
 
-OP_MODE = :development
-#OP_MODE = :test_dev
+op_mode = :development
+#op_mode = :test_dev
 
 config_file = File.join(File.dirname($0), 'node_proxy.yaml')
 op = OptionParser.new
 op.on '-c', '--config-file FILE', "File to read configuration parameters from [#{config_file}]" do |f|
   config_file = f
 end
+op.on '-m', '--op-mode MODE', "OpMode to use when calling OmfCommon.init() [#{op_mode}]" do |m|
+  op_mode = m
+end
+op.on_tail('-h', "--help", "Show this message") { $stderr.puts op; exit }
 op.parse!
 
 
@@ -26,11 +31,11 @@ opts = OmfCommon.load_yaml config_file, {
   remove_root: :proxy, 
   wait_for_readable: 2
 }
-puts ">>>> #{opts.inspect}"
+#puts ">>>> #{opts.inspect}"
 
 resources_opts = opts.delete(:resources)
 proxies = []
-OmfCommon.init(OP_MODE, opts) do |el|
+OmfCommon.init(op_mode, opts) do |el|
   
   if resources_opts.empty?
     error "Can't find any proxies to create"
