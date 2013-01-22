@@ -24,4 +24,9 @@ Gem::Specification.new do |s|
 #  s.add_development_dependency "minitest", "~> 2.11.3"
   s.add_runtime_dependency "omf_rc" #, "~> 0.9"
   s.add_runtime_dependency "fog" #, "~> 0.8.3"
+  #OptionParser-0.5.1
+  
+  # SHould be in OmfCommon
+  #amqp-0.9.8
+  #daemons-1.1.9
 end
