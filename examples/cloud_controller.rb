@@ -40,7 +40,7 @@ def create_server(cloud)
     name: 's2',
     flavor: 'm1.tiny',
     image: 'Ubuntu 12.04 cloudimg amd64',
-    image: 'max - ubuntu - LTS'
+    image: 'OMF6 U12.04-64 V2'
   }
   cloud.create(:server, sopts) do |msg|
     if msg.success?

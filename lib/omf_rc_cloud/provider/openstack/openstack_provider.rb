@@ -47,7 +47,7 @@ module OmfRcCloud
         sp['hrn']
       end
       server.personality = [{
-        'path' => '/home/ubuntu/foo',
+        'path' => '/etc/omf_rc/node_proxy.yaml',
         'contents' => {
           'proxy' => {
             'communication' => OmfCommon.comm.options,
