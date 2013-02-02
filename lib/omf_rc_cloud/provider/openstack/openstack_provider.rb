@@ -5,6 +5,7 @@
 # By downloading or using this software you accept the terms and the liability disclaimer in the License.
 #-------------------------------------------------------------------------------
 require 'fog'
+require 'omf_rc_cloud/provider/openstack/fog_monkey_patches'
 require 'yaml'
 
 module OmfRcCloud
@@ -27,43 +28,48 @@ module OmfRcCloud
     end
     
     def server_create(server_proxy)
-      uid = server_proxy.uid
-      opts = server_proxy.property
-      copts = {
-        name: uid,
-        flavor_ref: flavor_find(opts[:flavor]).id,
-        image_ref: image_find(opts[:image]).id,
-      } 
-      server = @connection.servers.new copts
-      
-      # meta = {
-        # resource_id: uid,
-        # #parent_id: server.parent.uid,
-        # communication: OmfCommon.comm.options
-      # }
-      # server.metadata = {omf6: meta.to_s}
-      
-      
-      sp = {
-        'type' => 'node',
-        'uid' => uid
-      }
-      if hrn = server_proxy.hrn
-        sp['hrn']
+      begin 
+        uid = server_proxy.uid
+        opts = server_proxy.property
+        copts = {
+          name: uid,
+          flavor_ref: flavor_find(opts[:flavor]).id,
+          image_ref: image_find(opts[:image]).id,
+        } 
+        server = @connection.servers.new copts
+        
+        # meta = {
+          # resource_id: uid,
+          # #parent_id: server.parent.uid,
+          # communication: OmfCommon.comm.options
+        # }
+        # server.metadata = {omf6: meta.to_s}
+        
+        
+        sp = {
+          'type' => 'node',
+          'uid' => uid
+        }
+        if hrn = server_proxy.hrn
+          sp['hrn']
+        end
+        server.personality = [{
+          'path' => '/etc/omf_rc/node_proxy.yaml',
+          'contents' => {
+            'proxy' => {
+              'communication' => OmfCommon.comm.options,
+              'resources' => [sp]
+            }
+          }.to_yaml
+        }]
+        server.save
+        @servers << server
+        #debug server.inspect
+        server
+      rescue Excon::Errors::Unauthorized => ex
+        error "Auth token to create servers has expired"
+        raise ProviderUnauthorizedException.new
       end
-      server.personality = [{
-        'path' => '/etc/omf_rc/node_proxy.yaml',
-        'contents' => {
-          'proxy' => {
-            'communication' => OmfCommon.comm.options,
-            'resources' => [sp]
-          }
-        }.to_yaml
-      }]
-      server.save
-      @servers << server
-      #debug server.inspect
-      server
     end
     
     def server_get_status(server)

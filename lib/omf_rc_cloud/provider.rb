@@ -20,6 +20,9 @@ module OmfRcCloud
     }
     @@instance = nil
     
+    class ProviderException < Exception; end
+    class ProviderUnauthorizedException < ProviderException; end
+    
     #
     # opts:
     #   :type - pre installed stack technology provider

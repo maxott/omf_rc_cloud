@@ -46,7 +46,7 @@ def create_server(cloud)
     name: 's2',
     flavor: 'm1.tiny',
     image: 'Ubuntu 12.04 cloudimg amd64',
-    image: 'OMF6 U12.04-64 V2'
+    image: 'OMF6 U12.04-64 V3'
   }
   cloud.create(:server, sopts) do |msg|
     if msg.success?
@@ -81,7 +81,7 @@ def on_server_created(server, cloud)
   # end
 
   # 10 seconds later, we will 'release' this server, i.e. shut it down
-  server.after(10) do
+  server.after(100) do
     logger.info "Time to release server #{server}"
     cloud.release server do |rmsg|
       info "===> server RELEASED: #{rmsg}"
@@ -120,7 +120,7 @@ OmfCommon.init(OP_MODE, opts) do |el|
       end
     end
     
-    el.after(20) { el.stop }
+    el.after(120) { el.stop }
   end
 end
 

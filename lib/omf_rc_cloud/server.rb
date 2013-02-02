@@ -27,16 +27,20 @@ module OmfRcCloud::Server
 
   hook :after_initial_configured do |server|
     #puts "AFTER>>> #{server.property}"
-    shandle = server.property.server_handle = OmfRcCloud::Provider.instance.server_create(server)
-    info "Server #{server.uid}::#{server.property.server_handle} configured using options defined in create messages."
-    
-    last_status_h = {} 
-    OmfCommon.eventloop.every(5) do
-      status_h = OmfRcCloud::Provider.instance.server_get_status(shandle)
-      unless status_h == last_status_h
-        server.inform(:status, status_h)
+    begin 
+      shandle = server.property.server_handle = OmfRcCloud::Provider.instance.server_create(server)
+      info "Server #{server.uid}::#{server.property.server_handle} configured using options defined in create messages."
+      
+      last_status_h = {} 
+      OmfCommon.eventloop.every(5) do
+        status_h = OmfRcCloud::Provider.instance.server_get_status(shandle)
+        unless status_h == last_status_h
+          server.inform(:status, status_h)
+        end
+        last_status_h = status_h
       end
-      last_status_h = status_h
+    rescue OmfRcCloud::Provider::ProviderUnauthorizedException => pex
+      raise "Cloud Provider not authorized"
     end
   end
 

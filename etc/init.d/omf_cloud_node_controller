@@ -1,6 +1,6 @@
 #!/bin/bash
 
-CONFIG_FILE=/etc/omf_rc/node_proxy.yaml
+CONFIG_FILE=/etc/omf_rc/cloud_node.yaml
 
 RUBY=ruby-1.9.3-p374
 RVM_HOME=/home/ubuntu/.rvm
@@ -15,4 +15,5 @@ GEM_PATH="${RVM_HOME}/gems/${RUBY}:${RVM_HOME}/gems/${RUBY}@global"
 RUBYLIB=$OMF_CLOUD_HOME/lib:$OMF6_HOME/omf_common/lib:$OMF6_HOME/omf_rc/lib
 
 
-env GEM_HOME=${GEM_HOME} PATH=${PATH} GEM_PATH=${GEM_PATH} RUBYLIB=${RUBYLIB} ruby $OMF_CLOUD_HOME/examples/node_proxy.rb -c ${CONFIG_FILE} -m production $*
+env GEM_HOME=${GEM_HOME} PATH=${PATH} GEM_PATH=${GEM_PATH} RUBYLIB=${RUBYLIB} ruby $OMF_CLOUD_HOME/examples/node_proxy.rb -c $
+{CONFIG_FILE} -m production $*
