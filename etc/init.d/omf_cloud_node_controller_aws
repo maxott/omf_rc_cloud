@@ -1,9 +1,14 @@
 #!/bin/bash
 # 
-# Start the OMF resource controller
+# Start the OMF resource controller for an AWS cloud node
 # 
+# NOTE: The configuration for the RC is expected to come from AWS's User Data service
+#
 
 CONFIG_FILE=/etc/omf_rc/cloud_node.yaml
+if [ "$1" == 'start'  ]; then
+  curl http://169.254.169.254/latest/user-data > ${CONFIG_FILE}
+fi
 
 RUBY=ruby-1.9.3-p374
 RVM_HOME=/home/ubuntu/.rvm
