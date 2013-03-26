@@ -6,20 +6,22 @@
 #-------------------------------------------------------------------------------
 # -*- encoding: utf-8 -*-
 $:.push File.expand_path("../lib", __FILE__)
-require "omf_rc_cloud/version"
 
 Gem::Specification.new do |s|
-  s.name        = "omf_rc_cloud"
+  s.name        = "omf_rc_cloud_node"
 #  s.version     = OmfWeb::VERSION
-  s.version     = OmfRcCloud::VERSION
+  s.version     = '1.0.0'
   s.authors     = ["NICTA"]
   s.email       = ["omf-user@lists.nicta.com.au"]
-  s.homepage    = "https://www.mytestbed.net"
-  s.summary     = %q{OMF6 proxy for cloud installation.}
-  s.description = %q{A OMF6 resource proxy to create resources which can be provided
-    by a specific cloud installation.}
+  s.homepage    = "http://omf.mytestbed.net"
+  s.summary     = %q{startup script for OMF6 proxy on cloud nodes.}
+  s.description = %q{Scripts to start a node proxy for a cloud node. This is 
+    used for nodes created through the 'omf_rc_cloud' proxy.}
 
-  s.rubyforge_project = "omf_rc_cloud"
+  s.required_ruby_version = '>= 1.9.3'
+  s.license = 'MIT'
+
+  s.rubyforge_project = "omf_rc_cloud_node"
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
@@ -29,10 +31,6 @@ Gem::Specification.new do |s|
   # specify any dependencies here; for example:
 #  s.add_development_dependency "minitest", "~> 2.11.3"
   s.add_runtime_dependency "omf_rc" #, "~> 0.9"
-  s.add_runtime_dependency "fog" #, "~> 0.8.3"
-  #OptionParser-0.5.1
-  
-  # SHould be in OmfCommon
-  #amqp-0.9.8
+  s.add_runtime_dependency "OptionParser" #, "~> 0.8.3"
   #daemons-1.1.9
 end
