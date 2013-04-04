@@ -10,7 +10,7 @@ $:.push File.expand_path("../lib", __FILE__)
 Gem::Specification.new do |s|
   s.name        = "omf_rc_cloud_node"
 #  s.version     = OmfWeb::VERSION
-  s.version     = '1.0.0'
+  s.version     = '0.0.1'
   s.authors     = ["NICTA"]
   s.email       = ["omf-user@lists.nicta.com.au"]
   s.homepage    = "http://omf.mytestbed.net"
@@ -25,12 +25,13 @@ Gem::Specification.new do |s|
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
-  s.executables   = `git ls-files -- {bin,sbin}/*`.split("\n").map{ |f| File.basename(f) }
+  #s.executables   = `git ls-files -- {bin,sbin}/*`.split("\n").map{ |f| File.basename(f) }
+  s.executables   = `git ls-files -- {bin}/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 
   # specify any dependencies here; for example:
 #  s.add_development_dependency "minitest", "~> 2.11.3"
-  s.add_runtime_dependency "omf_rc" #, "~> 0.9"
+#  s.add_runtime_dependency "omf_rc" #, "~> 0.9"
   s.add_runtime_dependency "OptionParser" #, "~> 0.8.3"
   #daemons-1.1.9
 end
