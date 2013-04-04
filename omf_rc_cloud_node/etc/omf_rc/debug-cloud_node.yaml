@@ -1,0 +1,11 @@
+---
+proxy:
+  communication:
+    url: amqp://0.0.0.0
+  resources:
+  - type: node
+    uid: node.debug
+    create_opts:
+      suppress_created_message: true # don't send initial 'created'
+      create_interfaces: true # also create interfaces which are already up
+
