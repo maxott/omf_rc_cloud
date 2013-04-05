@@ -19,8 +19,9 @@ if [ ! -e /usr/local/rvm/bin/rvm ]; then
   die "Can't find 'rvm' installed in '/usr/local/rvm'"
 fi
 
-if [ ! -e /usr/local/rvm/gems/${RUBY_VER} ]; then
-  die "Can't find ruby binary '${RUBY_VER}'"
+if [ ! -e /usr/local/rvm/bin/${RUBY_VER} ]; then
+  echo "Need to first install missing ${RUBY_VER}"
+  /usr/local/rvm/bin/rvm install --autolibs=4 ${RUBY_VER}
 fi
 
 if [ ! -e $CONFIG_FILE ]; then
