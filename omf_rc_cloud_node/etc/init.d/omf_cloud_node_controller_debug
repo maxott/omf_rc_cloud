@@ -1,0 +1,13 @@
+#!/bin/bash
+# 
+# Start the OMF resource controller
+# 
+
+CONFIG_FILE=/etc/omf_rc/cloud_node.yaml
+RVM_VERSION=ruby-1.9.3-p374@omf
+
+OMF6_HOME=/home/ubuntu/omf6
+OMF_CLOUD_NODE_HOME=/home/ubuntu/omf_rc_cloud/omf_rc_cloud_node
+
+source /home/ubuntu/.rvm/environments/${RVM_VERSION}
+ruby -I${OMF6_HOME}/omf_common/lib -I${OMF6_HOME}/omf_rc/lib -I${OMF_CLOUD_NODE_HOME}/lib -romf_rc_cloud_node -e just_doit -- -c ${CONFIG_FILE} -m production $*

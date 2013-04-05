@@ -1,2 +1,8 @@
 .project
 pkg
+omf_rc_cloud_node/build-stamp
+omf_rc_cloud_node/configure-stamp
+debian/omf-rc-cloude-node-*
+omf_rc_cloud_node/Gemfile
+omf_rc_cloud_node/build/omf-rc-cloud-node-0.9_1_amd64*
+omf_rc_cloud_node/debian/omf-rc-cloud-node-*

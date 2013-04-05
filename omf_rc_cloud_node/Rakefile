@@ -5,9 +5,15 @@
 # By downloading or using this software you accept the terms and the liability disclaimer in the License.
 #-------------------------------------------------------------------------------
 require 'rake/testtask'
-require "bundler/gem_tasks"
+#require "bundler/gem_tasks"
 
 task :default => :test
+
+task :package do
+  Dir.mkdir("build") unless Dir.exists?("build")
+  sh "debuild -uc -us -b"
+  sh "mv ../omf-rc-cloud-node-*.* build"
+end
 
 Rake::TestTask.new do |t|
   t.libs << 'test'

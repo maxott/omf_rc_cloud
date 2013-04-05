@@ -39,7 +39,6 @@ def just_doit
   #
   opts = OmfCommon.load_yaml config_file, {
     symbolize_keys: true, 
-    remove_root: :proxy, 
     wait_for_readable: 2,
     erb_process: true
   }
@@ -75,4 +74,8 @@ def just_doit
       end
     end
   end
+end
+
+if __FILE__ == $0
+  just_doit
 end

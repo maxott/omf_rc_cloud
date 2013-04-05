@@ -1,0 +1,19 @@
+---
+communication:
+  url: amqp://srv.mytestbed.net
+resources:
+- type: node
+  uid: <%= Socket.gethostname %>
+  create_opts:
+    suppress_created_message: true # don't send initial 'created'
+    create_interfaces: true # also create interfaces which are already up
+factories: # resources which can be created by this RC
+- add_defaults: false # Do not add default type factories
+- type: tuhura_task
+  producer: node  # which resource type can create this type
+  gem:
+    name: tuhura-omf_rc
+    git: 'git://github.com/maxott/tuhura-gems.git'
+    git_multi_gem: true # the git repo contains multiple gems
+    # name:
+    # version:

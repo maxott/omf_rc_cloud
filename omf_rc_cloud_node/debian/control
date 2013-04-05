@@ -1,0 +1,13 @@
+Source: omf-rc-cloud-node-0.9
+Section: science
+Priority: extra
+Maintainer: Maximilian Ott <max.ott@nicta.com.au>
+Build-Depends: debhelper (>= 5)
+Standards-Version: 3.7.2
+
+Package: omf-rc-cloud-node-0.9
+Architecture: all
+Depends: wget, libgdbm-dev, pkg-config, libffi-dev
+Description: OMF Cloud Node Controller
+ Agent to represent cloud node in an OMF6 universe
+
