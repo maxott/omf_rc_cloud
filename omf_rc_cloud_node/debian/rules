@@ -46,7 +46,7 @@ install: build
 
 	# Add here commands to install the package into debian/.
 	mkdir -p debian/$(PKG_NAME)/usr/share/$(PKG_NAME)
-	tar -h -cf - lib sbin Gemfile LICENSE.txt | tar -xf - -C debian/$(PKG_NAME)/usr/share/$(PKG_NAME)
+	tar -h -cf - lib sbin Gemfile.in LICENSE.txt | tar -xf - -C debian/$(PKG_NAME)/usr/share/$(PKG_NAME)
 	mkdir -p debian/$(PKG_NAME)/etc
 	tar -cf - -C etc omf_rc | tar -xf - -C debian/$(PKG_NAME)/etc
 	mkdir -p debian/$(PKG_NAME)/etc/init
