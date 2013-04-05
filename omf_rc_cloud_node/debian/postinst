@@ -31,7 +31,7 @@ case "$1" in
         curl -L https://get.rvm.io | sudo bash -s stable
       fi
       if [ ! -e /usr/local/rvm/bin/${RUBY_VER} ]; then
-        /usr/local/rvm/bin/rvm install ${RUBY_VER}
+        /usr/local/rvm/bin/rvm install --autolibs=4 ${RUBY_VER}
       fi
     ;;
 
