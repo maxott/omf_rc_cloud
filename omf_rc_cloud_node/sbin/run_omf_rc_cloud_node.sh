@@ -35,5 +35,5 @@ if [ ! -e vendor ]; then
 else
   /usr/local/rvm/bin/rvm ${RUBY_VER} exec bundle update
 fi
-exec /usr/local/rvm/bin/rvm ${RUBY_VER} exec bundle exec ruby lib/omf_rc_cloud_node.rb -c ${CONFIG_FILE} $@
+exec /usr/local/rvm/bin/rvm ${RUBY_VER} exec bundle exec ruby lib/omf_rc_cloud_node.rb -c ${CONFIG_FILE} -m production $@
 

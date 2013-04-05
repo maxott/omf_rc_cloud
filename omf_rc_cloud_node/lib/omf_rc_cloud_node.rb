@@ -42,7 +42,7 @@ def just_doit
     wait_for_readable: 2,
     erb_process: true
   }
-  puts opts
+  info "Opts: #{opts.inspect}"
   
   resources_opts = opts.delete(:resources)
   proxies = []
