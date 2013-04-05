@@ -1,0 +1,14 @@
+---
+communication:
+  url: amqp://????
+logging:
+  level:
+    'OmfCommon::Message': info
+    default: debug
+resources:
+- type: node
+  uid: <%= `hostname -f`.strip %>
+  membership: c1.incmg.net
+  create_opts:
+    suppress_created_message: true # don't send initial 'created'
+    create_interfaces: true # also create interfaces which are already up
