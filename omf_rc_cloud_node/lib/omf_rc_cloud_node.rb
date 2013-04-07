@@ -44,6 +44,18 @@ def just_doit
   }
   info "Opts: #{opts.inspect}"
   
+  if factories_opts = opts.delete(:factories)
+    factories_opts.each do |fo|
+      if fo[:add_defaults] == true
+        OmfRc::ResourceFactory.load_default_resource_proxies
+      end
+      if req = fo[:require]
+        info "Loading resource type module '#{req}'"
+        require(req)
+      end
+    end
+  end
+  
   resources_opts = opts.delete(:resources)
   proxies = []
   OmfCommon.init(op_mode, opts) do |el|
@@ -54,18 +66,17 @@ def just_doit
     end
     
     OmfCommon.comm.on_connected do |comm|
-      default_proxies_loaded = false
       resources_opts.each do |resource_opts|
         unless type = resource_opts.delete(:type)
           error "Can't find type of proxy to create - #{resource_opts.inspect}"
           exit(-1)
         end
-        if req = resource_opts.delete(:require)
-          require req
-        elsif not default_proxies_loaded
-          OmfRc::ResourceFactory.load_default_resource_proxies
-          default_proxies_loaded = true
-        end
+        # if req = resource_opts.delete(:require)
+          # require req
+        # elsif not default_proxies_loaded
+          # OmfRc::ResourceFactory.load_default_resource_proxies
+          # default_proxies_loaded = true
+        # end
         create_opts = resource_opts.delete(:create_opts) || {}
         membership = resource_opts.delete(:membership)
         r = OmfRc::ResourceFactory.create(type, resource_opts, create_opts)
