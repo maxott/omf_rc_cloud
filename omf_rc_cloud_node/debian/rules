@@ -10,7 +10,7 @@
 #export DH_VERBOSE=1
 
 VER=0.9
-PKG_NAME=omf-rc-cloud-node-$(VER)
+PKG_NAME=omf-rc-cloud-node
 
 configure: configure-stamp
 configure-stamp:

@@ -30,9 +30,10 @@ fi
 
 echo "Running OMF6 Cloud Node RC"
 cd $CLOUD_NODE_RC_DIR
+rm Gemfile.lock
 /usr/local/rvm/bin/rvm ${RUBY_VER} exec ruby lib/omf_rc_cloud_node/build_gem_file.rb -c $CONFIG_FILE
 if [ ! -e vendor ]; then
-  /usr/local/rvm/bin/rvm ${RUBY_VER} exec bundle package
+  /usr/local/rvm/bin/rvm ${RUBY_VER} exec bundle package --all
 else
   /usr/local/rvm/bin/rvm ${RUBY_VER} exec bundle update
 fi

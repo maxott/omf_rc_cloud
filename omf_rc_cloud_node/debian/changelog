@@ -1,4 +1,16 @@
-omf-rc-cloud-node-0.9 (1) testing; urgency=low
+omf-rc-cloud-node (0.9.3) precise; urgency=low
+
+  * Added g++ as dependency which is needed by eventmachine 
+
+ -- Maximilian Ott <max.ott@nicta.com.au>  Thu, 02 May 2013 14:39:00 +1000
+
+omf-rc-cloud-node (0.9.2) precise; urgency=low
+
+  * Removing Gemfile.lock as well on startup 
+
+ -- Maximilian Ott <max.ott@nicta.com.au>  Thu, 02 May 2013 12:49:42 +1000
+
+omf-rc-cloud-node (0.9.1) testing; urgency=low
 
   * Initial release.
 
