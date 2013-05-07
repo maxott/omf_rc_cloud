@@ -4,6 +4,11 @@ omf_rc_cloud_node/build-stamp
 omf_rc_cloud_node/configure-stamp
 debian/omf-rc-cloude-node-*
 omf_rc_cloud_node/Gemfile
-omf_rc_cloud_node/build/omf-rc-cloud-node-0.9_1_amd64*
-omf_rc_cloud_node/debian/omf-rc-cloud-node-*
+omf_rc_cloud_node/debian/omf-rc-cloud-node
+omf_rc_cloud_node/Gemfile.lockomf_rc_cloud_node/debian/dirs
+omf_rc_cloud_node/debian/files
+omf_rc_cloud_node/debian/omf-rc-cloud-node.debhelper.log
+omf_rc_cloud_node/debian/omf-rc-cloud-node.substvars
+omf_rc_cloud_node/build
+omf_rc_cloud_node/debian/dirs
 omf_rc_cloud_node/Gemfile.lock
