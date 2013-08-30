@@ -8,7 +8,7 @@
 Ultimately it should be in a package repository, but for the moment you'll
 need to fetch the package from github
 
-    % curl https://github.com/maxott/omf_rc_cloud/blob/master/omf_rc_cloud_node/build/omf-rc-cloud-node-0.9_3_all.deb?raw=true
+    % curl https://github.com/maxott/omf_rc_cloud/blob/master/omf_rc_cloud_node/build/omf-rc-cloud-node_latest_all.deb?raw=true
     % sudo apt-get install libgdbm-dev pkg-config libffi-dev git-core
     % sudo dpkg -i omf-rc-cloud-node-0.9_1_all.deb\?raw\=true
     
