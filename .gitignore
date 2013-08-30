@@ -9,6 +9,5 @@ omf_rc_cloud_node/Gemfile.lockomf_rc_cloud_node/debian/dirs
 omf_rc_cloud_node/debian/files
 omf_rc_cloud_node/debian/omf-rc-cloud-node.debhelper.log
 omf_rc_cloud_node/debian/omf-rc-cloud-node.substvars
-omf_rc_cloud_node/build
 omf_rc_cloud_node/debian/dirs
 omf_rc_cloud_node/Gemfile.lock
