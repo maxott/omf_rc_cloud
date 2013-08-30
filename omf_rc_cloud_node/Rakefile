@@ -12,7 +12,7 @@ task :default => :test
 task :package do
   Dir.mkdir("build") unless Dir.exists?("build")
   sh "debuild -uc -us -b"
-  sh "mv ../omf-rc-cloud-node-*.* build"
+  sh "mv ../omf-rc-cloud-node_*.* build"
 end
 
 Rake::TestTask.new do |t|

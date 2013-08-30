@@ -8,7 +8,7 @@ require 'optparse'
 require 'yaml'
 
 run_through_erb = false
-top_dir = File.join(File.dirname($0), '../..')
+top_dir = File.join(File.dirname($0), '../../..')
 config_file = File.join(top_dir, 'etc/omf_rc/cloud_node.yaml')
 op = OptionParser.new
 op.on '-c', '--config-file FILE', "File to read configuration parameters from [#{config_file}]" do |f|
@@ -57,8 +57,7 @@ end
 })
     end
 
-    gem_file.write("gem '#{name}', :git => '#{git}'\n")        
+    gem_file.write("gem '#{name}', :git => '#{git}'\n")
   end
 end
 gem_file.close
- 

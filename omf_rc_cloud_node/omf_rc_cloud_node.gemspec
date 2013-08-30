@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.email       = ["omf-user@lists.nicta.com.au"]
   s.homepage    = "http://omf.mytestbed.net"
   s.summary     = %q{startup script for OMF6 proxy on cloud nodes.}
-  s.description = %q{Scripts to start a node proxy for a cloud node. This is 
+  s.description = %q{Scripts to start a node proxy for a cloud node. This is
     used for nodes created through the 'omf_rc_cloud' proxy.}
 
   s.required_ruby_version = '>= 1.9.3'
@@ -31,7 +31,7 @@ Gem::Specification.new do |s|
 
   # specify any dependencies here; for example:
 #  s.add_development_dependency "minitest", "~> 2.11.3"
-#  s.add_runtime_dependency "omf_rc" #, "~> 0.9"
+  s.add_runtime_dependency "omf_rc" #, "~> 0.9"
   s.add_runtime_dependency "OptionParser" #, "~> 0.8.3"
   #daemons-1.1.9
 end

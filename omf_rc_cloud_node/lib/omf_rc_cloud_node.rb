@@ -8,7 +8,7 @@
 
 require 'omf_common'
 require 'omf_rc'
-require 'omf_rc/resource_factory'  
+require 'omf_rc/resource_factory'
 require 'optparse'
 
 
@@ -16,10 +16,10 @@ def just_doit
   if $0.start_with? '-' # started with -e command line
     $0 = File.basename(__FILE__, '.rb')
   end
-    
+
   op_mode = :development
   #op_mode = :test_dev
-  
+
   config_file = File.join(File.dirname($0), 'cloud_node.yaml')
   op = OptionParser.new
   op.on '-c', '--config-file FILE', "File to read configuration parameters from [#{config_file}]" do |f|
@@ -30,20 +30,20 @@ def just_doit
   end
   op.on_tail('-h', "--help", "Show this message") { $stderr.puts op; exit }
   op.parse!
-  
-  
+
+
   #
   # This script starts a node proxy on a cloud instance. It assumes that
   # various configuration options are being copied onto the VM by the
   # cloud provider.
   #
   opts = OmfCommon.load_yaml config_file, {
-    symbolize_keys: true, 
+    symbolize_keys: true,
     wait_for_readable: 2,
     erb_process: true
   }
   info "Opts: #{opts.inspect}"
-  
+
   if factories_opts = opts.delete(:factories)
     factories_opts.each do |fo|
       if fo[:add_defaults] == true
@@ -55,32 +55,32 @@ def just_doit
       end
     end
   end
-  
+
   resources_opts = opts.delete(:resources)
   proxies = []
   OmfCommon.init(op_mode, opts) do |el|
-    
+
     if resources_opts.empty?
       error "Can't find any proxies to create"
       exit(-1)
     end
-    
+
     OmfCommon.comm.on_connected do |comm|
       resources_opts.each do |resource_opts|
         unless type = resource_opts.delete(:type)
           error "Can't find type of proxy to create - #{resource_opts.inspect}"
           exit(-1)
         end
-        # if req = resource_opts.delete(:require)
-          # require req
-        # elsif not default_proxies_loaded
-          # OmfRc::ResourceFactory.load_default_resource_proxies
-          # default_proxies_loaded = true
-        # end
+        kids = resource_opts.delete(:child_resources)
+
         create_opts = resource_opts.delete(:create_opts) || {}
-        membership = resource_opts.delete(:membership)
+        #membership = resource_opts.delete(:membership)
         r = OmfRc::ResourceFactory.create(type, resource_opts, create_opts)
-        r.configure_membership(membership) if membership
+        r.after_initial_configured if r.respond_to? :after_initial_configured
+
+        kids.each do |child|
+          r.create
+        end
         proxies << r
       end
     end
